@@ -1,0 +1,21 @@
+<!-- partial comment view -->
+
+<p>
+    <strong>Commenter:</strong>
+    <%= comment.commenter %>
+</p>
+ 
+<p>
+    <strong>Comment:</strong>
+    <%= comment.body %>
+</p>
+
+<p>
+    <!-- Create link with 'Destroy Comment' text that links to article show view 
+    but first shows confirm window to confirm that user wants to delete the 
+    comment. If they confirm, the delete method is executed before going to 
+    the show view.-->
+    <%= link_to 'Delete Comment', [comment.article, comment],
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %>
+</p>

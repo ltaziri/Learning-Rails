@@ -1,7 +1,13 @@
+<!-- Render partial nav view -->
+<%= render "nav" %>
 
-<h1>Add a New Mini-Golf Article</h1>
+<div class="container-fluid">
 
-<!--Render form partial for the new method-->
-<%= render 'form' %> 
+<%= link_to "Back to all articles", articles_path, class: "back_link" %>
+    
+    <h2>Add a New Mini-Golf Article</h2>
 
-<%= link_to 'Back', articles_path %>
+        <!--Render form partial for the new method-->
+        <%= render "form" %> 
+        
+</div>

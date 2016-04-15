@@ -1,0 +1,129 @@
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* Overall styling */
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+/*homepage styling*/
+
+#homepage {
+     margin: 0;
+     background-image: url("/assets/golf_ball.jpg");
+     background-size: cover;
+     background-attachment: fixed;
+     background-position: left top; 
+     background-repeat:no-repeat;
+     min-height: 1200px;
+}
+#homepage h1 {
+    font-size:500%;
+    font-family: "Fontdiner Swanky";
+    color: black;
+}
+
+.blog {
+    font-size:150%;
+}
+
+/*Navbar styling*/
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.logo {
+    font-family: "Fontdiner Swanky";
+    color: black;
+    margin-left:20px;
+}
+
+/*Blog link styling*/
+
+.back_link {
+    font-size:150%;
+}
+
+/*Overall Game Page styling*/
+
+#gamepage {
+    background-color: #5cb85c;
+    background-image: url("/assets/grain.png");
+}
+#note {
+    color:white;
+}
+
+td[class$=score] {
+    text-align:center;
+}
+
+/*Leaderboard styling*/
+
+#leaderheader {
+    text-align:center;
+    color:white;
+}
+
+#leader {
+    background-color:white;
+    border-radius: 15px;
+}
+.name {
+    padding-left: 20px;
+}
+
+#leader h4 {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+#leader td {
+    width: 50%;
+}
+
+/*Individual mini golf hole styling*/
+
+.hole_table h4 {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.hole_table h3 {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.scoreheader {
+    text-align:center;
+}
+
+.hole_div {
+    height: 500px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+.hole_div h3{
+    text-align:center;
+}
+
+/*Button styling*/
+
+.putt  {
+    margin-bottom: 15px;
+    width: 100%;
+    font-size: 24px;
+}
+
+#top {
+    width:100%;
+    margin-left:auto;
+    margin-right: auto;
+}

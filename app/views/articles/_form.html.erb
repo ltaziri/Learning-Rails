@@ -20,18 +20,24 @@ edit article view -->
   <% end %>
 
   <!-- Form input fields -->
-  <p>
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </p>
- 
-  <p>
-    <%= f.label :text %><br>
-    <%= f.text_area :text %>
-  </p>
- 
-  <p>
-    <%= f.submit %>
-  </p>
+<div class="well">
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-11 form-group">
+      <h3><%= f.label :title %></h3>
+      <%= f.text_field :title, class: "form-control"  %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-11 form-group">
+      <h3><%= f.label :text %></h3>
+      <%= f.text_area :text, rows: "15", class: "form-control" %>
+    </div>
+  </div>
+
+  <%= f.submit %>
+
+</div>
  
 <% end %>

@@ -1,0 +1,20 @@
+
+<!-- for each putt putt hole in the the holes array from the controller, 
+create this div.  -->
+<% @holes.each do |hole| %>
+
+<div class="col-xs-12 col-sm-12 col-md-4">
+    <div class="col-xs-10 col-xs-offset-1 hole_div">
+      <h3>  <%= hole %> </h3>
+      <button class="btn btn-default btn-success btn-lg putt">Ready Set...Putt!</button>
+
+      <table class="table table-striped table-condensed hole_table" >
+        <th><h3>Putter</h3></th>
+        <th class="scoreheader"><h3>Overall Score</h3></th>
+      </table>
+    </div>
+</div>
+
+<% end %>
+
+

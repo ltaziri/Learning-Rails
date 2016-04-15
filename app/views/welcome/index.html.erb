@@ -1,9 +1,17 @@
 <!-- Homepage view -->
+<div id="homepage" class ="container-fluid">
+    <div class = "row">
 
-<h1>Mini-Golf Enthusiasts</h1>
-<h3>because regular golf is hard</h3>
+        <div class="col-xs-12 col-sm-12 col-md-9">
+            <h1>Mini-Golf Enthusiasts</h1>
+            <h3>Because regular golf is too hard</h3>
 
-<%= link_to 'Go to the Blog', controller: 'articles' %>
-<br>
-<%= link_to 'Add a new article', new_article_path %>
-
+            <%= button_to "Go the Blog", articles_path, :method => "get",
+                class: "btn btn-success blog" %>
+            <br>
+            <%= button_to "Play a Game", game_index_path, :method => "get",
+                class: "btn btn-success blog" %>
+            
+        </div>
+    </div>
+</div>

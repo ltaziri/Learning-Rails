@@ -1,7 +1,13 @@
+<!-- Render partial nav view -->
+<%= render "nav" %>
 
-<h1>Enter article edits below and hit update</h1>
+<div class="container-fluid">
 
-<!--Render form partial for the edit method-->
-<%= render 'form' %>
- 
-<%= link_to 'Back', articles_path %>
+    <h2>Enter edits below for: <%= @article.title %></h2>
+
+    <%= link_to "Back to articles", article_path(@article), class: "back_link" %>
+
+    <!--Render form partial for the edit method-->
+    <%= render "form" %>
+
+</div>

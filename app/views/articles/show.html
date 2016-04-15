@@ -1,21 +1,41 @@
+<!-- Render partial nav view -->
+<%= render "nav" %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @article.title %>
-</p>
- 
-<p>
-  <strong>Text:</strong>
-  <%= @article.text %>
-</p>
+<div class="container-fluid">
+    <%= link_to "Back to all articles", articles_path, class: "back_link" %>
 
-<h2>Comments</h2>
-<!-- render comment partial view -->
-<%= render @article.comments %>
+    <div class="center jumbotron">
 
-<h2>Add a comment:</h2>
-<!-- render partial form in comments views folder -->
-<%= render 'comments/form' %>
+        <h2><%= @article.title %></h2>
 
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', articles_path %>
+        <!-- Create link with "Edit" text that links to article edit view -->
+        <p><%= link_to "Edit", edit_article_path(@article) %> | 
+
+        <!-- Create link with "Destroy" text that links to article show view 
+        but first shows confirm window to confirm that user wants to delete the 
+        article. If they confirm the delete method is executed before going to 
+        the show view.-->
+        <%= link_to "Delete", article_path,
+            method: :delete,
+            data: { confirm: "Are you sure?" } %> </p>
+
+        <p>
+          <%= @article.text %>
+        </p>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 well">
+            <h4>Add a comment:</h4>
+            <!-- render partial form in comments views folder -->
+            <%= render "comments/form" %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
+            <h3>Comments:</h3>
+            <!-- render comment partial view -->
+            <%= render @article.comments[0...-1] %>
+        </div>
+    </div>
+</div>

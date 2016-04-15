@@ -1,0 +1,175 @@
+
+<nav class="navbar navbar-default navbar-static-top overlay">
+  <div class="navbar-header">
+    <h2><%= link_to "Mini-Golf Enthusiasts", root_path , class: "logo" %></h2>
+  </div>
+</nav>
+
+<div class = "container-fluid" id="gamepage"> 
+  <br>
+  <i id="note">** Names borrowed from the "famous" <a href="walkerart.org/minigolf">
+   Walker on the Green course</a> in Minneapolis."</i>  
+
+  <!-- Leaderboard initial set up -->
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-4">
+      <h1 id="leaderheader"> LEADERBOARD </h1>
+      <table class="table table-striped table-condensed" id="leader">
+        <thead>
+          <th><h3 class="name">Putter</h3></th>
+          <th class="scoreheader"><h3>Overall Score</h3></th>
+        </thead>
+
+        </tbody>
+          <% @players.each do |player| %>
+
+            <tr class="player">
+              <td><h4 class="name"> <%= player %> </h4></td>
+              <td class="score"><h4>0</h4></td>
+            </tr>
+          <% end %>
+        </tbody>
+      
+      </table>
+    </div>
+  </div>
+
+  <!-- Use partial view to render a div for each hole -->
+  <div class="row" id="main_game">
+    <%= render "hole" %>
+  </div>
+
+  <!-- Game over button that is only visible after the 9th hole has been played -->
+  <div class ="row"> 
+    <div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-8">
+      <div class="col-xs-10 col-md-offset-1">
+        <button class="btn btn-default btn-lg" id="top"> 
+          <span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span>
+          Game Over! See the Winner! </button> 
+      </div>
+    </div> 
+  </div>
+
+</div><!-- end of container -->
+
+<script>
+$(document).ready(function(){
+  // on initial load all putt buttons but the first are disabled
+  $(".putt").prop("disabled",true);
+  var firstButton = $(".putt").first();
+  $(firstButton).prop("disabled",false);
+
+  // hide the winner button until the 9th hole is played
+  $("#top").hide();
+
+  // Create initial zero scores for each player
+  <% @players.each do |player| %>
+    var <%= player %>OverallScore = 0;
+  <% end %>
+
+  // Function that will return a random putt number
+  function getRandomPutt(min, max) {
+    return Math.floor(Math.random() * (max-min)+min);
+  }
+
+  // Event handler when one of the putt buttons is clicked.
+  $(".putt").click(function(evt){
+    // disable the button that was just clicked
+    $(this).prop("disabled",true);
+
+    // identify and select the table right after the button that was clicked
+    var holeTable = $(this).next("table");
+
+    var leaderboard = [];
+
+    <% @players.each do |player| %>
+      // For each player, get a random number
+      var putt = getRandomPutt(1,15);
+      // Create a table row and with the players name and the putt score
+      var htmlStr = "";
+      htmlStr += "<tr class='player' style='display: none;'><td><h4 class='name'>";
+      htmlStr += "<%= player %> </h4></td><td class='score'><h4>" + putt + "</h4></td></tr>";
+      // Append the row to the table
+      $(holeTable).append(htmlStr);
+
+      // Add the putt number to the players current overall score.
+      <%= player %>OverallScore += putt;
+      // Create an object containing the players name and score. Push the object
+      // to the leaderboard array that will be used to update the leaderboard.
+      var player = {};
+      player["name"] = "<%= player %>";
+      player["score"] = <%= player %>OverallScore;
+      leaderboard.push(player);
+
+    <% end %>
+
+    //Show each players score for that hole one by one, with added dramatic 
+    // pause before, to represent putting time. 
+    $(function() {
+      i = 0;
+      $(".player").each(function(i) {
+      $(this).delay((i++) * 50).fadeTo(800, 100);})
+    });
+
+    // Sort the leaderboard array by player score
+    leaderboard.sort(function(a, b) {
+    return parseInt(a.score) - parseInt(b.score);
+    });
+
+    // Replace the Leaderboard table with new rows based on the sorted order of
+    // the leaderboard array
+    $("#leader tbody").replaceWith(function() {
+      var newboard = "<tbody>"
+      for (var i = 0; i < leaderboard.length; i++) {
+        newboard += "<tr class='player'><td><h4 class='name'>" + leaderboard[i]['name'] + "</h4></td>";
+        newboard += "<td class='score'><h4>" + leaderboard[i]['score'] + "</h4></td></tr>";
+      }
+      newboard += "</tbody>"
+      return newboard;
+    })
+
+    // Check if there is a next hole div on the page, meaning you are not on 
+    // hole 9, and if so make the button for the next hole clickable.
+    var nextTable = $(this).parent("div").parent("div").next("div").children("div");
+    if ($(nextTable).children(".putt").length > 0) {
+      var nextButton = $(nextTable).children(".putt");
+      $(nextButton).prop("disabled",false);
+    }
+    else {
+      // Else, if you are on hole 9, show the button that will take you back to 
+      // the top of the page and create a button to refresh the game. 
+      $("#top").show();
+      var PlayAgainBtn = '<%= button_to "Play again!", game_index_path, 
+                             :method => "get", class: "btn btn-default btn-lg" %>'
+                             
+      if (leaderboard[0]["score"] !== leaderboard[1]["score"]) {
+        // If there isn't a tie for first, color the winner's row(first row in leader table) 
+        // red and add a congratulatory message with a button to refresh the game.
+        var winnerRow = $("#leader tbody tr").first();
+        $(winnerRow).css("color", "red");
+        $("#leaderheader").prepend("<h2>" + leaderboard[0]["name"] + " is the winner!</h2>");
+        $("#leaderheader").prepend(PlayAgainBtn);
+        }
+      else {
+        // If there is a tie for first, color the both winners rows red and add 
+        // a tie message with a button to refresh the game. Note, this could be
+        // extended to check if more than two people tied, but statistically it
+        // didn't seem probable.
+        var winnerOne = $("#leader tbody tr").first();
+        var winnerTwo = $(winnerOne).next("tr");
+        $(winnerOne).css("color", "red");
+        $(winnerTwo).css("color", "red");
+        $("#leaderheader").prepend("<h2>" + leaderboard[0]["name"] + " and " + 
+                                    leaderboard[1]["name"] +" tied!</h2>");
+        $("#leaderheader").prepend(PlayAgainBtn);
+        }
+      }
+    })
+   
+   // Event handler for winner button at the bottom of the page to take you 
+   // back to the top of the page to see the leaderboard.
+   $("#top").click(function(evt){ 
+      $("body").scrollTop(0);
+    });    
+});
+</script>

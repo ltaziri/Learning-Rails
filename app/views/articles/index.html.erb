@@ -1,33 +1,30 @@
-<h1>Latest Mini-Golf News</h1>
- 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Text</th>
-  </tr>
+<!-- Render partial nav view -->
+<%= render "nav" %>
+
+<div class="container-fluid">
+
+<div class="row">
+  <div class= "col-xs-12 col-sm-12 col-md-6 col-md-offset-4">
+    <h1 class="headline">Latest Mini-Golf Posts</h1>
+  </div>
+</div>
+
 
  <!-- For each article is articles array, render the following table row-->
   <% @articles.each do |article| %>
-    <tr>
-      <td><%= article.title %></td>
+    <div class="well">
 
-      <td><%= article.text %></td>
-      <!-- Create link with 'Show' text that links to article show view -->
-      <td><%= link_to 'Show', article_path(article) %></td>
+      <h2><%= article.title %></h2>
 
-      <!-- Create link with 'Edit' text that links to article edit view -->
-      <td><%= link_to 'Edit', edit_article_path(article) %></td>
+      <p><%= article.text[0..275] %> 
+      <!-- Create link that links to article show view -->
+      <%= link_to "Continue Reading", article_path(article) %> <p>
       
-      <!-- Create link with 'Destroy' text that links to article show view 
-      but first shows confirm window to confirm that user wants to delete the 
-      article. If they confirm the delete method is executed before going to 
-      the show view.-->
-      <td><%= link_to 'Delete', article_path(article),
-              method: :delete,
-              data: { confirm: 'Are you sure?' } %></td>
-    </tr>
+    </div>
   <% end %>
-</table>
 
-<%= link_to "Home", root_path %>
 
+<%= button_to "Add a new article", new_article_path, :method => "get",
+                class: "btn btn-success" %>
+
+</div>

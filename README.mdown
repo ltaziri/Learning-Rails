@@ -1,0 +1,73 @@
+![MGE](app/assets/images/mini-golf_home.png)
+
+Mini-Golf Enthusiasts
+===================
+
+#### Because regular golf is too hard.  
+----------
+## Table of Contents
+* [Technologies Used](#technologiesused)
+* [Blog](#blog)
+* [User Authentication](#authentication)
+* [Play a Game](#game)
+* [Further Study](#study)
+* [Author](#author)
+
+-------------
+### <a name="technologiesused"></a>Technologies Used 
+
+Ruby, Rails, SQLite, Bootstrap, JQuery
+
+Basic blog web app was built using the tutorial at: http://guides.rubyonrails.org/getting_started.html. 
+
+Customizations beyond the tutorial include styling and the addition of a  mini-golf game to the app.
+
+-------------
+### <a name="blog"></a>The Blog
+
+The blog was built using the above mentioned tutorial with the goal of getting a basic understanding of how to use Rails to build a web app. The blog was then styled using Bootstrap and links were removed and added to make for a more logical user flow. 
+
+Users are first brought to an overview page where they can see short previews of the latest blog posts:
+![User Home](app/assets/images/user_home.png)
+
+Users can click through to view the entire article, read/add comments, or, if the user is the admin, edit or delete the article. 
+![Full Article](app/assets/images/full_article.png)
+
+-------------
+### <a name="authentication"></a>User Authentication
+Based on the basic authentication step in 9.1 of the tutorial, the user will see a user name and password login screen if they are not logged in as the admin and they try to edit/delete/add content to the blog.
+
+![Authentication Screen](app/assets/images/authentication.png)
+
+-------------
+### <a name="game"></a>Play a Game
+
+To once and for all determine who would win at a mini-golf game, a mini-golf game was added to the app and is accessible via a button on the homepage. Once on the game index page a user can start playing by clicking the "Ready Set ... Putt!" button for the first hole. 
+
+![Game Start](app/assets/images/game_home.png)
+
+Clicking the button for a hole automatically generates the number of putts each member of the team got based on skill(a.k.a randomly). Those scores are then added to each person's overall score on the leaderboard and the leaderboard is re-sorted based on who the overall leader is. Once one hole is completed, the button for the next hole is enabled, allowing the user to progress through the game.
+
+![Keeping Score](app/assets/images/keeping_score.png)
+
+Finally after all 9 holes are played, the user can return to the top of the page to see who the overall winner was or winners if there was a tie. If the user is unhappy with the results they can click the "Play Again" button to reset the game. 
+
+![Winner](app/assets/images/winner.png)
+
+-------------
+### <a name="study"></a>Further Study
+
+Some items that I looked into for this project but realized it would require further study and more time would be:
+
+**Testing** - I began researching unit and integration testing for Rails and I would need a deeper understanding of Rails environments to be able to set up tests. 
+
+**External Javascript** - The javascript used to create the game is included on the games index page. I tried putting it on an external sheet in the 'assets/javascripts' folder and could not get the javascript to compile. 
+
+-------------
+### <a name="author"></a>Author
+
+Leilani Taziri is a Software Engineer and a recent graduate of Hackbright Academy. 
+
+**GitHub** http://github.com/ltaziri   
+
+**Linkedin** https://www.linkedin.com/in/leilanitaziri
